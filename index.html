@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Frisson Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+   
+  </style>
+</head>
+<body>
+<div class="header">
+  <button id="settingsBtn" class="settings-btn">Settings</button>
+    <button id="editorBtn" class="editor-btn">Editor</button>
+	<button id="AboutBtn" class="About-btn">About</button>
+  <button id="connectBtn" class="connect-btn">Connect to Archipelago</button>
+</div>
+  
+  <div class="tracker-container" id="trackerContainer"></div>
+
+  <script>
+    window.trackerConfig = {};
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+      window.trackerConfig = await window.electronAPI.getConfig();
+      
+      document.getElementById('settingsBtn').addEventListener('click', () => {
+        window.electronAPI.openWindow('settings');
+      });
+
+      document.getElementById('connectBtn').addEventListener('click', () => {
+        window.electronAPI.openWindow('connect');
+      });
+	        document.getElementById('AboutBtn').addEventListener('click', () => {
+        window.electronAPI.openWindow('about');
+      });
+
+window.electronAPI.onConnectUpdate((data) => {
+  if (!window.tracker || !window.tracker.connected) {
+    if (window.initializeConnection) {
+      initializeConnection(data);
+      document.getElementById('connectBtn').textContent = "CONNECTED";
+      document.getElementById('connectBtn').classList.add('connected');
+    }
+  }
+});
+      window.electronAPI.onApplyNewPositions((event, positions) => {
+    applyNewPositions(positions);
+});
+      window.electronAPI.onConfigUpdate((event, config) => {
+        window.trackerConfig = config;
+        renderTracker(config);
+      });
+    });
+  </script>
+  <script src="preload.js"></script>
+  <script src="archipelago.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

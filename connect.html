@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Connection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: white;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      background: #333;
+      color: white;
+      border: 1px solid #555;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #9900ff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-group">
+    <label>Server Address:</label>
+    <input type="text" id="serverInput" placeholder="archipelago.gg:38281" value="archipelago.gg:">
+  </div>
+  <div class="form-group">
+    <label>Player Name:</label>
+    <input type="text" id="playerInput" placeholder="Your name">
+  </div>
+  <div class="form-group">
+    <label>Password (optional):</label>
+    <input type="password" id="passwordInput">
+  </div>
+  <button id="connectButton">CONNECT</button>
+
+  <script src="preload.js"></script>
+  <script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+  if (window.electronAPI) {
+    window.electronAPI.onSlotData((event, slotData) => {
+      console.log('Connect window received slot data:', slotData);
+    });
+  }
+});
+  
+    document.getElementById('connectButton').addEventListener('click', () => {
+      const server = document.getElementById('serverInput').value.trim();
+      const player = document.getElementById('playerInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+
+      if (!server || !player) {
+        alert("Please enter server address and player name");
+        return;
+      }
+
+      const serverUrl = server.startsWith('ws://') ? server : `wss://${server}`;
+      
+      window.electronAPI.sendConnectData({
+        serverUrl,
+        playerName: player,
+        password
+      });
+    });
+  </script>
+</body>
+</html>

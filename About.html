@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - Mon Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6d8fd3;
+            --secondary-color: #4a7db8;
+            --accent-color: #7d00d1;
+            --text-color: #e0e0e0;
+            --background-color: #1a1a1a;
+            --card-color: #2d2d2d;
+            --light-gray: #3d3d3d;
+            --dark-gray: #121212;
+            --success-color: #4caf50;
+            --border-width: 1px;
+            --card-padding: 20px;
+            --border-radius: 12px;
+            --section-spacing: 25px;
+        }
+
+        [data-theme="light"] {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #ff5722;
+            --text-color: #333;
+            --background-color: #f8f9fa;
+            --card-color: #ffffff;
+            --light-gray: #e9ecef;
+            --dark-gray: #d1d1d1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Font', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+	        letter-spacing: 2px;
+        }
+		
+     h1, h2, h3, p {
+	 text-shadow:
+    0 0 3px #000,  
+    -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px -2px 0 #000, 
+    3px -2px 0 #000,
+    -3px 2px 0 #000,
+    3px 2px 0 #000;
+}
+		
+		
+        		        @font-face {
+  font-family: 'Font';
+  src: url('assets/font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--section-spacing);
+        }
+        
+        .about-card {
+            background: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: var(--card-padding);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border: var(--border-width) solid var(--light-gray);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h1::after, h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+        
+        h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .team-member {
+            background: var(--dark-gray);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            border: var(--border-width) solid var(--light-gray);
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-member img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            color: var(--text-color);
+            font-size: 1.3em;
+            transition: transform 0.2s, color 0.2s;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.2);
+            color: var(--accent-color);
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+        
+        .action-button, .help-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: var(--border-width) solid var(--primary-color);
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+        
+        .action-button:hover, .help-btn:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .feature-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+        
+        .feature-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: var(--dark-gray);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: var(--border-width) solid var(--light-gray);
+        }
+        
+        .feature-list li i {
+            color: var(--accent-color);
+            font-size: 1.2em;
+        }
+
+        .version-info {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: var(--dark-gray);
+            border-radius: 8px;
+            font-family: monospace;
+            border: var(--border-width) solid var(--light-gray);
+        }
+        
+        .theme-switcher {
+            position: fixed;
+            bottom: 0px;
+            right: 0px;
+            background: var(--primary-color);
+            color: white;
+            border: var(--border-width) solid var(--primary-color);
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 1.3em;
+            transition: all 0.3s;
+        }
+        
+        .theme-switcher:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1) translateY(-3px);
+            border-color: var(--secondary-color);
+        }
+
+        .language-switcher {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: var(--border-width) solid var(--primary-color);
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-weight: bold;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        
+        .language-switcher:hover {
+            background: var(--secondary-color);
+            transform: scale(1.1) translateY(-3px);
+            border-color: var(--secondary-color);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--light-gray), transparent);
+            margin: -10px 0;
+            border: none;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    
+    <div class="about-container">
+        <div class="about-card">
+            <h1 id="about-title">À propos de l'application</h1>
+            <p id="about-description">Notre application a été conçue pour offrir une expérience de tracking intuitive et personnalisable pour les joueurs. Elle évolue constamment grâce à vos retours.</p>
+        </div>
+
+        <hr class="section-divider">
+        
+        <div class="about-card">
+            <h2 id="help-title">Besoin d'assistance ?</h2>
+            <p id="help-text">Appuyez sur "Tutoriel" pour accéder à notre tutoriel interactif qui vous guidera à travers toutes les fonctionnalités de l'application.</p>
+
+            <div class="action-buttons">
+                <button id="HelpBtn" class="help-btn">
+                    <i class="fas fa-book-open"></i>
+                    <span id="help-button-text">Tutoriel</span>
+                </button>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <div class="about-card">
+            <h2 id="team-title">Notre équipe</h2>
+            <p>Une équipe passionnée dédiée à créer la meilleure expérience utilisateur pour vous.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="assets/Frisson.jpg" alt="Développeur principal">
+                    <h3>Frisson</h3>
+                    <p class="dev-role">Développeur</p>
+                </div>
+                <div class="team-member">
+                    <img src="assets/Henoty.png" alt="Beta testeur">
+                    <h3>Henoty</h3>
+                    <p class="tester-role">Beta testeur</p>
+                </div>
+                <div class="team-member">
+                    <img src="assets/Skeltan.png" alt="Beta testeur">
+                    <h3>Skeltan</h3>
+                    <p class="tester-role">Beta testeur</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+        
+        <div class="about-card">
+            <h1 id="discord-title">Discord</h1>
+            <p id="discord-text">Rejoignez notre communauté Discord pour poser des questions, signaler des bugs ou simplement discuter avec d'autres utilisateurs et notre équipe.</p>
+            
+            <div class="action-buttons">
+                <a href="https://discord.gg/pYuZUtqCPh" class="action-button" target="_blank">
+                    <i class="fab fa-discord"></i>
+                    <span id="discord-button-text">Rejoindre notre Discord</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <button class="language-switcher" id="languageSwitcher">EN</button>
+
+    <script>
+        const translations = {
+            en: {
+                about: {
+                    title: "About the Application",
+                    description: "Our application is designed to provide an intuitive and customizable tracking experience for gamers. It constantly evolves thanks to your feedback."
+                },
+                help: {
+                    title: "Need assistance?",
+                    text: "Click on 'Tutorial' to access our interactive tutorial that will guide you through all the application's features.",
+                    button: "Tutorial"
+                },
+                team: {
+                    title: "Our Team",
+                    dev: "Developer",
+                    tester: "Beta Tester"
+                },
+                discord: {
+                    title: "Discord",
+                    text: "Join our Discord community to ask questions, report bugs or just chat with other users and our team.",
+                    button: "Join our Discord"
+                }
+            },
+            fr: {
+                about: {
+                    title: "À propos de l'application",
+                    description: "Notre application a été conçue pour offrir une expérience de tracking intuitive et personnalisable pour les joueurs. Elle évolue constamment grâce à vos retours."
+                },
+                help: {
+                    title: "Besoin d'assistance ?",
+                    text: "Appuyez sur 'Tutoriel' pour accéder à notre tutoriel interactif qui vous guidera à travers toutes les fonctionnalités de l'application.",
+                    button: "Tutoriel"
+                },
+                team: {
+                    title: "Notre équipe",
+                    dev: "Développeur",
+                    tester: "Beta testeur"
+                },
+                discord: {
+                    title: "Discord",
+                    text: "Rejoignez notre communauté Discord pour poser des questions, signaler des bugs ou simplement discuter avec d'autres utilisateurs et notre équipe.",
+                    button: "Rejoindre notre Discord"
+                }
+            }
+        };
+
+        let currentLanguage = 'fr';
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'fr' ? 'en' : 'fr';
+            updateLanguage();
+            updateLanguageButton();
+            saveLanguagePreference();
+        }
+
+        function updateLanguage() {
+            document.documentElement.lang = currentLanguage;
+            const trans = translations[currentLanguage];
+            
+            document.getElementById('about-title').textContent = trans.about.title;
+            document.getElementById('about-description').textContent = trans.about.description;
+            document.getElementById('help-title').textContent = trans.help.title;
+            document.getElementById('help-text').textContent = trans.help.text;
+            document.getElementById('help-button-text').textContent = trans.help.button;
+            document.getElementById('team-title').textContent = trans.team.title;
+            
+            document.querySelectorAll('.dev-role').forEach(el => {
+                el.textContent = trans.team.dev;
+            });
+            document.querySelectorAll('.tester-role').forEach(el => {
+                el.textContent = trans.team.tester;
+            });
+            
+            document.getElementById('discord-title').textContent = trans.discord.title;
+            document.getElementById('discord-text').textContent = trans.discord.text;
+            document.getElementById('discord-button-text').textContent = trans.discord.button;
+        }
+
+        function updateLanguageButton() {
+            const button = document.getElementById('languageSwitcher');
+            button.textContent = currentLanguage === 'fr' ? 'EN' : 'FR';
+        }
+
+        function saveLanguagePreference() {
+            if (typeof require !== 'undefined') {
+                const { ipcRenderer } = require('electron');
+                ipcRenderer.send('set-language', currentLanguage);
+            } else {
+                localStorage.setItem('languagePreference', currentLanguage);
+            }
+        }
+
+        function loadSavedLanguage() {
+            if (typeof require !== 'undefined') {
+                const { ipcRenderer } = require('electron');
+                ipcRenderer.invoke('get-language').then(lang => {
+                    if (lang) {
+                        currentLanguage = lang;
+                        updateLanguage();
+                        updateLanguageButton();
+                    }
+                }).catch(err => {
+                    console.error('Error getting language:', err);
+                });
+            } else if (localStorage.getItem('languagePreference')) {
+                currentLanguage = localStorage.getItem('languagePreference');
+                updateLanguage();
+                updateLanguageButton();
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded - starting initialization");
+
+            loadSavedLanguage();
+            
+
+            const languageSwitcher = document.getElementById('languageSwitcher');
+            if (languageSwitcher) {
+                languageSwitcher.addEventListener('click', toggleLanguage);
+            }
+
+            const helpBtn = document.getElementById('HelpBtn');
+            console.log("Button element found:", helpBtn);
+
+            if (!helpBtn) {
+                console.error("ERROR: HelpBtn button not found in DOM");
+                return;
+            }
+
+            helpBtn.addEventListener('click', function() {
+                console.log("Help button click detected");
+                
+                if (window.electronAPI?.openHelpWindow) {
+                    console.log("Attempting to open via electronAPI");
+                    window.electronAPI.openHelpWindow();
+                } else {
+                    console.warn("electronAPI not available, attempting normal open");
+                    window.open('help.html', '_blank');
+                }
+            });
+            
+            console.log("Event handlers attached successfully");
+            
+
+            initThemeSwitcher();
+            loadSavedTheme();
+        });
+
+
+        function initThemeSwitcher() {
+            const themeSwitcher = document.querySelector('.theme-switcher');
+            if (!themeSwitcher) return;
+
+            themeSwitcher.addEventListener('click', () => {
+                const currentTheme = document.body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.body.setAttribute('data-theme', newTheme);
+                themeSwitcher.textContent = newTheme === 'dark' ? '🌓' : '🌒';
+                
+                if (typeof require !== 'undefined') {
+                    const { ipcRenderer } = require('electron');
+                    ipcRenderer.send('set-theme', newTheme);
+                } else {
+                    localStorage.setItem('themePreference', newTheme);
+                }
+            });
+        }
+
+        function loadSavedTheme() {
+            if (typeof require !== 'undefined') {
+                const { ipcRenderer } = require('electron');
+                ipcRenderer.invoke('get-theme').then(theme => {
+                    if (theme) {
+                        document.body.setAttribute('data-theme', theme);
+                        document.querySelector('.theme-switcher').textContent = theme === 'dark' ? '🌓' : '🌒';
+                    }
+                }).catch(err => {
+                    console.error('Error getting theme:', err);
+                });
+            } else if (localStorage.getItem('themePreference')) {
+                const savedTheme = localStorage.getItem('themePreference');
+                document.body.setAttribute('data-theme', savedTheme);
+                document.querySelector('.theme-switcher').textContent = savedTheme === 'dark' ? '🌓' : '🌒';
+            }
+        }
+    </script>
+</body>
+</html>

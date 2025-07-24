@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aide - Mon Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6d8fd3;
+            --secondary-color: #4a7db8;
+            --accent-color: #ff7e5d;
+            --text-color: #e0e0e0;
+            --background-color: #1a1a1a;
+            --card-color: #2d2d2d;
+            --light-gray: #3d3d3d;
+            --dark-gray: #121212;
+            --success-color: #4caf50;
+        }
+
+        [data-theme="light"] {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #ff5722;
+            --text-color: #333;
+            --background-color: #f8f9fa;
+            --card-color: #ffffff;
+            --light-gray: #e9ecef;
+            --dark-gray: #d1d1d1;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Font', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+		        @font-face {
+  font-family: 'Font';
+  src: url('assets/font.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+ h1, h2, h3{
+ text-shadow: 
+    0 0 3px #000,  
+    -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px -2px 0 #000, 
+    3px -2px 0 #000,
+    -3px 2px 0 #000,
+    3px 2px 0 #000;
+	letter-spacing: 2px;
+	font-size: 1.3em;
+}
+ summary {
+
+	letter-spacing: 2px;
+}
+ p, a{
+			 text-shadow: 
+    0 0 1px #000,  
+    -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px -2px 0 #000,  
+    3px -2px 0 #000,
+    -3px 2px 0 #000,
+    3px 2px 0 #000;
+	letter-spacing: 1px;
+		font-size: 0.8em;
+}
+ 
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .help-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: var(--card-color);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .content {
+            flex: 3;
+            min-width: 300px;
+            background: var(--card-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            border: 1px solid var(--light-gray);
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        test {
+            color: white;
+            font-weight: normal;
+        }
+        
+        details {
+            margin-bottom: 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: 5px;
+            padding: 10px;
+            background-color: var(--dark-gray);
+        }
+        
+        [data-theme="light"] details {
+            background-color: var(--light-gray);
+        }
+        
+        summary {
+            cursor: pointer;
+            padding: 8px;
+            outline: none;
+            color: var(--primary-color);
+        }
+        
+        summary:hover {
+            background-color: var(--light-gray);
+        }
+        
+        .section {
+            padding: 20px;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .test {
+            padding: 20px;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .category {
+            margin: 15px 0 10px 0;
+            padding: 10px 15px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            font-weight: normal;
+        }
+        
+        details {
+            overflow: hidden;
+            padding: 10px 15px;
+        }
+
+        details ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+
+        details li {
+            margin-bottom: 5px;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        img, .gif-container {
+            max-width: 100%;
+            border-radius: 5px;
+            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid var(--light-gray);
+            cursor: zoom-in;
+        }
+        img:hover {
+            max-width: 100%;
+            border-radius: 5px;
+            margin: 10px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid var(--light-gray);
+            cursor: zoom-in;
+              box-shadow: 0 0 10px rgba(0, 191, 234, 0.7);
+        }
+        .external-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .external-link:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 5px rgba(255, 126, 93, 0.3);
+        }
+        
+        code {
+            background-color: var(--dark-gray);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+            color: var(--accent-color);
+            border: 1px solid var(--light-gray);
+        }
+        
+        .quick-links {
+            margin-bottom: 20px;
+        }
+        
+        .quick-link {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            padding: 5px 10px;
+            background-color: var(--light-gray);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9em;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .quick-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .theme-switcher {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        
+        .theme-switcher:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+        
+        .media-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .media-container img {
+            max-height: 400px;
+            object-fit: contain;
+        }
+        p {
+            margin: 15px 0 10px 0;
+            padding: 10px 15px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            font-weight: normal;
+        }
+        .action-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            font-weight: normal;
+        }
+        
+        .action-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .image-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-overlay img {
+            transform: cover;
+            transition: transform 0.3s ease;
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border: 2px solid var(--light-gray);
+            border-radius: 5px;
+        }
+
+        .close-overlay {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 35px;
+            font-weight: normal;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .close-overlay:hover {
+            color: var(--accent-color);
+        }
+        
+         .bordered-container {
+            border: 1px solid #444444;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #333333;
+            margin-bottom: 20px;
+        }
+        
+        .bordered-container p {
+            margin: 0 0 10px 0;
+        }
+        
+        .bordered-container p:last-child {
+            margin-bottom: 0;
+        }
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            transition: all 0.2s;
+        }
+        
+        .discord-link:hover, 
+.discord-link:hover + .discord-icon {
+	            background-color: var(--primary-color);
+}
+
+.discord-link:hover .discord-icon,
+.discord-link:hover + .discord-icon {
+    color: white;
+}
+
+.discord-icon {
+    font-size: 1.8em;
+    color: #5865F2;
+			 text-shadow: 
+    0 0 1px #000,  
+    -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px -2px 0 #000, 
+    3px -2px 0 #000,
+    -3px 2px 0 #000,
+    3px 2px 0 #000;
+}
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .content {
+            flex: 3;
+            min-width: 300px;
+        }
+
+        .quick-links {
+            position: sticky;
+            bottom: 20px;
+            background: var(--card-color);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .language-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 12px;
+            transition: all 0s;
+            font-size: 1.3em;
+            color: #5865F2;
+			 text-shadow: 
+    0 0 1px #000,  
+    -2px -2px 0 #000,  
+    2px -2px 0 #000,
+    -2px 2px 0 #000,
+    2px 2px 0 #000,
+    -3px -2px 0 #000,  
+    3px -2px 0 #000,
+    -3px 2px 0 #000,
+    3px 2px 0 #000;
+        }
+
+        .language-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    
+    <div class="help-container">
+        <aside class="sidebar">
+            <h2></h2>
+             <div class="quick-links">
+                <h2>Sommaire</h2>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li><a href="#tracker" class="quick-link">Traceur</a></li>
+                    <li><a href="#interface" class="quick-link">Interface</a></li>
+                    <li><a href="#fonction1" class="quick-link">Configuration avancée</a></li>
+                </ul>
+            </div>
+            
+            <div class="quick-links">
+                <h3>Discord</h3>
+                <a href="https://discord.gg/pYuZUtqCPh" class="quick-link discord-link" target="_blank">
+                    <i class="fab fa-discord discord-icon"></i>
+                </a>
+                <button id="languageSwitcher" class="quick-link language-link">
+                    <span class="language-text">EN</span>
+                </button>
+            </div>
+			
+			            <div class="quick-links">
+                <p>-- Keyboard shortcut --</p>
+				<p>Shift = Smart Guide</p>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <h1>Guide d'utilisation complet</h1>
+            
+            <div class="section" id="tracker">
+                <h2>Traceur Automatique</h2>
+                <p>Découvrez un outil de tracking intuitif et parfaitement adapté à vos besoins, avec une configuration simplifiée pour une prise en main immédiate.</p>
+                <img src="assets/debut.png" width="300" alt="Interface principale du tracker">
+            </div>
+            
+            <div class="section" id="interface">
+                <h2>Exploration de l'Interface</h2>
+              
+                
+                <details>
+                    <summary>Panneau de Configuration</summary>
+                    <p>Accédez à un tableau de bord interactif vous permettant de configurer votre tracker avec une précision inégalée, le tout dans un environnement visuel et ergonomique.</p>
+                    <div class="media-container">
+                        <img src="assets/Settings.png" width="300" alt="Panneau de configuration du tracker">
+                    </div>
+                </details>
+                
+                <details>
+                    <summary>Mode Personnalisation</summary>
+                    <p>Libérez votre créativité avec notre système de personnalisation avancé : redimensionnez, repositionnez et ajustez chaque élément selon vos préférences pour créer une interface véritablement unique.
+					Maintenez la touche Shift enfoncée pour activer le Smart Guide - un outil d'alignement intelligent qui vous aide à positionner parfaitement vos objets et catégories.</p>
+                </details>
+                
+                <details>
+                    <summary>Mode Streaming (OBS)</summary>
+                    <p>Intégrez facilement votre tracker comme overlay dans OBS avec notre configuration optimisée pour le streaming. Une simple capture de fenêtre suffit pour afficher votre progression en temps réel à votre audience.</p>
+                    <div class="media-container">
+                        <img src="assets/obs.gif" width="400" alt="Démonstration du changement de fond d'écran">
+                    </div>
+                    <p><strong>Tips : Utilisez le mode "Capture de fenêtre" dans OBS et sélectionnez l'application. Activez la transparence dans les filtres d'obs pour un overlay parfaitement intégré à votre scène.</strong> </p>
+                </details>
+            </div>
+
+            <div class="section" id="fonction1">
+                <h2>Guide Complet des Fonctionnalités</h2>
+                
+                <details>
+                    <summary>Fonctions de Base</summary>
+                    <p>Personnalisez l'ambiance visuelle de votre tracker en modifiant l'image d'arrière-plan selon vos goûts.</p>
+                    <div class="media-container">
+                        <img src="assets/background.gif" alt="Démonstration du changement de fond d'écran">
+                    </div>
+                
+                    <p>La connexion à votre compte est essentielle pour débloquer toutes les fonctionnalités de personnalisation de votre overlay.</p>
+                    <div class="media-container">
+                        <img src="assets/Connection.gif" alt="Processus de connexion au compte">
+                    </div>
+                
+                    <p>Créez et organisez vos catégories avec une grande flexibilité : ajoutez des codes couleur personnalisés et ajustez la taille des icônes pour une expérience visuelle optimale.</p>
+                    <div class="media-container">
+                        <img src="assets/Categories.gif" alt="Création et gestion des catégories">
+                    </div>
+                
+                    <p>Une fois connecté, configurez facilement vos Items et Locations grâce à notre tableau interactif. Nous explorerons les paramètres avancés dans les sections suivantes.</p>
+                    <div class="media-container">
+                        <img src="assets/Table.gif" alt="Configuration des items via le tableau interactif">
+                    </div>
+                   
+                    <p>Exportez et importez vos configurations de packs en quelques clics. Pensez à sauvegarder régulièrement votre travail pour préserver vos personnalisations !</p>
+                    <div class="media-container">
+                        <img src="assets/importexport.png" alt="Fonctions d'import/export">
+                    </div>
+                </details>
+                
+                <details>
+                    <summary>Paramètres des object reçu</summary>
+                    <p>Associe automatiquement le nom de l'image avec l'objet correspondant dans Archipelago.</p>
+                    <div class="media-container">
+                        <img src="assets/names.gif" alt="Assignation automatique des noms">
+                    </div>
+                    
+                    <p>Sélectionnez librement la catégorie à associer à chaque objet pour une organisation parfaitement adaptée.</p>
+                    <div class="media-container">
+                        <img src="assets/Category.gif" alt="Sélection de catégorie">
+                    </div>
+                    
+                    <p>Importez vos propres images ou utilisez des liens externes pour personnaliser complètement l'apparence de vos objets.</p>
+                    <div class="media-container">
+                        <img src="assets/Imagefile.gif" width="400" alt="Importation d'images personnalisées">
+                    </div>
+                    
+                    <div class="bordered-container">
+                        <p><strong>Mode Compteur (Counter)</strong></p>
+                        <p>Ce mode affiche dynamiquement la quantité d'un même objet possédé. Idéal pour suivre les objets accumulables comme les étoiles ou les pièces.</p>
+                    </div>
+                    <div class="media-container">
+                        <img src="assets/countMode.png" alt="Fonctionnalité de comptage">
+                    </div>
+                    
+                    <div class="bordered-container">
+                        <p><strong>Mode Images Différentes (Different images)</strong></p>
+                        <p>Permet d'afficher des images distinctes en fonction du nombre d'exemplaires possédés. Parfait pour représenter les évolutions d'objets (comme le grappin dans Zelda) ou les améliorations progressives.</p>
+                        <p>Exemple concret : Le grappin évolue visuellement d'une version courte à une version longue selon votre progression.</p>
+                    </div>
+                    <div class="media-container">
+                        <img src="assets/CountMode.gif" width="400" alt="Démonstration du mode images multiples">
+                    </div>
+                </details>
+                
+                <details>
+                    <summary>Configuration des Locations</summary>
+                    <div class="bordered-container">
+                        <h3>Image de Checkmark</h3>
+                        <p>Sélectionnez l'image qui s'affichera comme indicateur de validation lorsque la location sera complétée. Cette fonctionnalité vous permet de personnaliser visuellement la confirmation d'achèvement.</p>
+                        <p><strong>Exemple : Vous avez Mario comme objet obtenu, vous pouvez afficher un checkmark sur son icône dès que vous accomplissez la location associée par exemple "Win with Mario".</strong></p>
+                    </div>
+               <div class="media-container" style="display: flex; gap: 20px; align-items: center;">
+    <img src="assets/LinkLocation.gif" width="400" alt="Sélection d'image pour les checkmarks de location">
+    <img src="assets/Mario.gif" width="300" alt="Configuration de l'ordre d'affichage">
+</div>
+                    
+                    <div class="bordered-container">
+                        <h3>Gestion de l'Ordre d'Affichage</h3>
+                        <p>Déterminez précisément l'ordre de priorité d'affichage des images pour représenter visuellement votre progression.</p>
+                        <p><strong>Cas d'utilisation : Pour les trophées de coupe dans Mario Kart, vous pouvez configurer l'affichage séquentiel des images (Bronze → Argent → Or).</strong></p>
+                    </div>
+                    
+                    <div class="media-container">
+                        <img src="assets/Order.gif" width="400" alt="Configuration de l'ordre d'affichage">
+                    </div>
+                </details>
+            </div>
+        </main>
+    </div>
+
+
+    <div class="image-overlay" id="imageOverlay">
+        <span class="close-overlay">&times;</span>
+        <img id="zoomedImage" src="" alt="Image zoomée">
+    </div>
+
+	<script src="help.js"></script>
+</body>
+</html>

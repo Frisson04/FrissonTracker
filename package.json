@@ -1,0 +1,50 @@
+{
+  "name": "tracker-fri",
+  "version": "0.2.0",
+  "main": "main.js",
+  "description": "Our application is designed to provide an intuitive and customizable tracking experience for gamers. It constantly evolves thanks to your feedback.",
+  "author": "Frisson",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win --x64",
+    "build": "electron-builder build --win --publish never",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "build": {
+    "appId": "com.Frisson.FrissonTracker",
+    "productName": "Frisson Tracker",
+    "executableName": "FrissonTracker",
+    "directories": {
+      "output": "Frisson"
+    },
+    "files": [
+      "*.gif",
+	  "*.js",
+	  "*.css",
+	  "*.html",
+      "*.img",
+      "assets/**/*",
+      "img/**/*",
+      "css/**/*",
+      "js/**/*"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "portable",
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico",
+      "createDesktopShortcut": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12"
+  }
+}
