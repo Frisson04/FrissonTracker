@@ -1032,6 +1032,13 @@ function renderTracker(config) {
         };
     });
 
+   if (config.categoryPositions) {
+        requestAnimationFrame(() => {
+            applyNewPositions(config.categoryPositions);
+        });
+    }
+
+
     trackerContainer.innerHTML = '';
 
     if (!config || !config.categories || !config.items) {
@@ -1205,29 +1212,6 @@ function captureCurrentPositions() {
     
     return positions;
 }
-
-function applyCategoryPosition(element, position, container) {
-    element.style.left = `${position.x}px`;
-    element.style.top = `${position.y}px`;
-    
-    if (position.width) {
-        element.style.width = `${position.width}px`;
-    }
-    if (position.height) {
-        element.style.height = `${position.height}px`;
-    }
-
-    requestAnimationFrame(() => {
-        const maxX = container.clientWidth - element.offsetWidth;
-        const maxY = container.clientHeight - element.offsetHeight;
-        
-        if (position.x > maxX) element.style.left = `${maxX}px`;
-        if (position.y > maxY) element.style.top = `${maxY}px`;
-        if (position.x < 0) element.style.left = '0px';
-        if (position.y < 0) element.style.top = '0px';
-    });
-}
-
 
 function applyCategoryPosition(element, position, container) {
     element.style.left = `${position.x}px`;

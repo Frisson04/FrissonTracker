@@ -144,17 +144,15 @@ function editCategory(id) {
 }
 
 async function saveCategory() {
-	    let wasEditMode = false;
+    let wasEditMode = false;
     const name = categoryName.value.trim();
     const color = categoryColor.value;
-       const imageSize = parseInt(document.getElementById('imageSize').value) || 80;
-	   
-	   
+    const imageSize = parseInt(document.getElementById('imageSize').value) || 80;
+    
     if (!name) {
         showAlert('Please enter a category name');
         return;
     }
-
 
     try {
         const config = await window.electronAPI.getFullConfig();
@@ -162,18 +160,14 @@ async function saveCategory() {
         
         if (wasEditMode) {
             await window.electronAPI.toggleEditMode();
+            await new Promise(resolve => setTimeout(resolve, 100)); 
         }
     } catch (e) {
         console.error('Error checking edit mode:', e);
     }
 
-
-    const currentPositions = captureCurrentPositions();
-    const currentConfig = await window.electronAPI.getConfig();
-    const mergedPositions = {
-        ...currentConfig.categoryPositions,
-        ...currentPositions
-    };
+    const config = await window.electronAPI.getConfig();
+    const currentPositions = config.categoryPositions || {};
 
     if (currentEditId) {
         const index = categories.findIndex(c => c.id === currentEditId);
@@ -181,7 +175,6 @@ async function saveCategory() {
             categories[index] = { ...categories[index], name, color, imageSize };
         }
     } else {
-
         const newCategoryId = generateId();
         categories.push({
             id: newCategoryId,
@@ -190,27 +183,42 @@ async function saveCategory() {
             imageSize
         });
 
- 
-        mergedPositions[newCategoryId] = {
+        currentPositions[newCategoryId] = {
             x: 20,
             y: 20,
             width: 300,
             height: 200
         };
     }
-    
 
-    await saveDataWithPositions(mergedPositions);
+    const configToSave = {
+        ...config,
+        categories: [...categories],
+        categoryPositions: currentPositions
+    };
+
+    await window.electronAPI.saveConfig(configToSave);
+    window.electronAPI.notifyConfigChange();
     
     document.getElementById('categoryForm').style.display = 'none';
     renderCategories();
 
     if (wasEditMode) {
-        await new Promise(resolve => setTimeout(resolve, 100)); 
+        await new Promise(resolve => setTimeout(resolve, 100));
         await window.electronAPI.toggleEditMode();
     }
 }
-
+function forceReflow(element) {
+    return new Promise(resolve => {
+        requestAnimationFrame(() => {
+            const display = element.style.display;
+            element.style.display = 'none';
+            element.offsetHeight; 
+            element.style.display = display;
+            resolve();
+        });
+    });
+}
 async function saveDataWithPositions(positions) {
     const config = await window.electronAPI.getConfig();
     const configToSave = {
@@ -526,11 +534,26 @@ function applyNewPositions(positions) {
     const trackerContainer = document.getElementById('trackerContainer');
     if (!trackerContainer) return;
 
-    Object.entries(positions).forEach(([categoryId, pos]) => {
-        const section = document.querySelector(`.category-section[data-category-id="${categoryId}"]`);
-        if (section) {
-            section.style.left = `${pos.x}px`;
-            section.style.top = `${pos.y}px`;
+    Object.entries(positions).forEach(([id, pos]) => {
+        const element = document.querySelector(`.category-section[data-category-id="${id}"]`) || 
+                       document.querySelector(`.uncategorized-item[data-item-id="${id}"]`);
+        
+        if (element) {
+            element.style.left = `${pos.x}px`;
+            element.style.top = `${pos.y}px`;
+            
+            if (pos.width) {
+                element.style.width = `${pos.width}px`;
+            }
+            if (pos.height) {
+                element.style.height = `${pos.height}px`;
+            }
+            
+            requestAnimationFrame(() => {
+                element.style.display = 'none';
+                element.offsetHeight;
+                element.style.display = '';
+            });
         }
     });
 }
@@ -574,7 +597,7 @@ if (gridColumnsInput) {
     gridColumnsInput.addEventListener('change', saveGridSettings);
 }
 
-window.electronAPI.onConfigUpdate((event, config) => {
+window.electronAPI.onConfigUpdate(async (event, config) => {
     categories = config.categories || [];
     images = config.items || [];
     gridColumns = config.gridColumns || 4;
@@ -584,6 +607,11 @@ window.electronAPI.onConfigUpdate((event, config) => {
     }
     
     renderCategories();
+    
+    if (config.categoryPositions) {
+        await new Promise(resolve => setTimeout(resolve, 50)); 
+        applyNewPositions(config.categoryPositions);
+    }
 });
 
 initUI();
