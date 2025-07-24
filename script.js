@@ -825,13 +825,18 @@ function createUncategorizedItem(item, config, container, savedPositions) {
     itemContainer.style.wordWrap = 'break-word'; 
     itemContainer.style.maxWidth = '100%'; 
 
-    const position = savedPositions[item.id] || {
-        x: Math.random() * (container.clientWidth - 150),
-        y: Math.random() * (container.clientHeight - 150),
+const position = (config.itemPositions && config.itemPositions[item.id]) || {
+        x: 50 + (Math.random() * 100),
+        y: 50 + (Math.random() * 100),
         width: 120,
         height: 120
     };
-
+	
+    itemContainer.style.left = `${position.x}px`;
+    itemContainer.style.top = `${position.y}px`;
+    itemContainer.style.width = `${position.width}px`;
+    itemContainer.style.height = `${position.height}px`;
+	
     applyCategoryPosition(itemContainer, position, container);
 
     const deleteItemBtn = document.createElement('button');
